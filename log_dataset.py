@@ -16,7 +16,8 @@ df = pd.read_csv('dataset.csv')
 # List of columns to log-transform
 log_columns = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
 
-df['fear-greed'] = df['fear-greed'] / 100
+# Normalize 'fear-greed' and round to three decimal places
+df['fear-greed'] = (df['fear-greed'] / 100).round(3)
 
 # Apply log transformation to the selected columns (adding 1 to avoid log(0))
 df[log_columns] = df[log_columns].apply(lambda x: np.log(x + 1))
@@ -24,5 +25,5 @@ df[log_columns] = df[log_columns].apply(lambda x: np.log(x + 1))
 # Save the transformed dataset
 df.to_csv('transformed_dataset.csv', index=False)
 
-print("Log transformation completed and saved as 'transformed_dataset.csv'")
+print("Log transformation and fear-greed normalization completed and saved as 'transformed_dataset.csv'")
 
